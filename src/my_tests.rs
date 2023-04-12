@@ -4,6 +4,7 @@ mod my_tests {
 
     #[test]
     fn gcd_works() {
+        assert_eq!(gcd(8, 0), 8);
         assert_eq!(gcd(12, 8), 4);
         assert_eq!(gcd(18, 12), 6);
         assert_eq!(gcd(12, 18), 6);
@@ -11,9 +12,9 @@ mod my_tests {
     }
 
     #[test]
-    fn euclid_extended_works() {
-        assert_eq!(euclid_extended(60, 48, None, None, None, None), Ok((12, 0, -1)));
-        assert_eq!(euclid_extended(123, 456, None, None, None, None), Ok((3, -63, 17)));
+    fn gcdx_works() {
+        assert_eq!(gcdx(60, 48), (12, 1, -1));
+        assert_eq!(gcdx(123, 456), (3, -63, 17));
     }
 
     #[test]
