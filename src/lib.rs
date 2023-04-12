@@ -18,7 +18,7 @@ pub fn encode(plaintext: &str, a: i32, b: i32) -> Result<String, AffineCipherErr
             .chars()
             .filter_map(|c| {
                 if c.is_alphabetic() {
-                    Some(int_to_char(((a * char_to_int(c) + b) % M) as u32))
+                    Some(int_to_char((a * char_to_int(c) + b) % M))
                 } else if c.is_digit(10) {
                     Some(c)
                 } else {
@@ -35,12 +35,12 @@ pub fn encode(plaintext: &str, a: i32, b: i32) -> Result<String, AffineCipherErr
 
 /// Decodes the ciphertext using the affine cipher with key (`a`, `b`).
 pub fn decode(ciphertext: &str, a: i32, b: i32) -> Result<String, AffineCipherError> {
-    match gcdx(a, b) {
+    match gcdx(a, M) {
         (1, mmi, _) => Ok(ciphertext
             .chars()
             .filter_map(|c| {
                 if c.is_alphabetic() {
-                    Some(int_to_char(((mmi * (char_to_int(c) - b)) % M) as u32))
+                    Some(int_to_char((((mmi * (char_to_int(c) - b)) % M) + M) % M))
                 } else if c.is_digit(10) {
                     Some(c)
                 } else {
@@ -56,8 +56,8 @@ fn char_to_int(char: char) -> i32 {
     char.to_ascii_lowercase() as i32 - 'a' as i32
 }
 
-fn int_to_char(input: u32) -> char {
-    (input + 'a' as u32) as u8 as char
+fn int_to_char(input: i32) -> char {
+    (input + 'a' as i32) as u8 as char
 }
 
 /// Given two input values a and b, finds the GCD of a and b.
