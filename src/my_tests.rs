@@ -11,6 +11,12 @@ mod my_tests {
     }
 
     #[test]
+    fn euclid_extended_works() {
+        assert_eq!(euclid_extended(60, 48, None, None, None, None), Ok((12, 0, -1)));
+        assert_eq!(euclid_extended(123, 456, None, None, None, None), Ok((3, -63, 17)));
+    }
+
+    #[test]
     fn char_to_int_works() {
         assert_eq!(char_to_int('A'), 0);
         assert_eq!(char_to_int('Z'), 25);
