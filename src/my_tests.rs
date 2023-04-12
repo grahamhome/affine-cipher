@@ -3,15 +3,6 @@ mod my_tests {
     use crate::*;
 
     #[test]
-    fn gcd_works() {
-        assert_eq!(gcd(8, 0), 8);
-        assert_eq!(gcd(12, 8), 4);
-        assert_eq!(gcd(18, 12), 6);
-        assert_eq!(gcd(12, 18), 6);
-        assert_eq!(gcd(20, 7), 1);
-    }
-
-    #[test]
     fn gcdx_works() {
         assert_eq!(gcdx(60, 48), (12, 1, -1));
         assert_eq!(gcdx(123, 456), (3, -63, 17));

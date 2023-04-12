@@ -13,8 +13,8 @@ pub enum AffineCipherError {
 
 /// Encodes the plaintext using the affine cipher with key (`a`, `b`).
 pub fn encode(plaintext: &str, a: i32, b: i32) -> Result<String, AffineCipherError> {
-    match gcd(a, M as i32) {
-        1 => Ok(plaintext
+    match gcdx(a, M) {
+        (1, _, _) => Ok(plaintext
             .chars()
             .filter_map(|c| {
                 if c.is_alphabetic() {
@@ -52,19 +52,6 @@ pub fn decode(ciphertext: &str, a: i32, b: i32) -> Result<String, AffineCipherEr
     }
 }
 
-fn char_to_int(char: char) -> i32 {
-    char.to_ascii_lowercase() as i32 - 'a' as i32
-}
-
-fn int_to_char(input: i32) -> char {
-    (input + 'a' as i32) as u8 as char
-}
-
-/// Given two input values a and b, finds the GCD of a and b.
-fn gcd(a: i32, b: i32) -> i32 {
-    return if b == 0 { a } else { gcd(b, a % b) };
-}
-
 /// Given two input values a and b, finds the GCD of a and b. Also finds x and y which satisfy
 /// the equation ax + by = GCD(a, b).
 fn gcdx(a: i32, b: i32) -> (i32, i32, i32) {
@@ -74,4 +61,12 @@ fn gcdx(a: i32, b: i32) -> (i32, i32, i32) {
         let (gcd, x, y) = gcdx(b, a % b);
         (gcd, y, x - ((a / b) * y))
     };
+}
+
+fn char_to_int(char: char) -> i32 {
+    char.to_ascii_lowercase() as i32 - 'a' as i32
+}
+
+fn int_to_char(input: i32) -> char {
+    (input + 'a' as i32) as u8 as char
 }
